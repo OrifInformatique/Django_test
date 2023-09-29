@@ -18,7 +18,16 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("", include("polls.urls")),
-    # path("polls/", include("polls.urls")),
+#    path("__debug__/", include("debug_toolbar.urls")),
+    # path("", include("polls.urls")),
+    path("polls/", include("polls.urls")),
+    path("shop/", include("shop.urls")),
     path('admin/', admin.site.urls),
 ]
+
+from django.conf import settings
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
