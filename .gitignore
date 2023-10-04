@@ -1,2 +1,9 @@
 tags
 __pycache__
+shop/static/shop/images/
+shop/static/shop/images/*
+shop/static/shop/images/**
+shop/static/shop/images
+*/**/__pycache__/
+*.pyc
+
