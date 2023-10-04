@@ -1,0 +1,47 @@
+{% load static %}
+{% load i18n %}
+
+{% translate 'Basket' as title%}
+<!DOCTYPE html>
+<html lang='fr-CH'>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'shop/bulma.min.css' %}">
+  </head>
+  <body lang="fr-CH">
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+          {{ title }}
+      </h1>
+      <p class="subtitle">
+          {% translate 'Check your basket' %}
+      </p>
+      <p class="block">
+          <a href=".." class='button is-link '>{% translate 'Return'%}</a>
+          <a href="#" class='button is-primary '>{% translate 'Next'%}</a>
+      </p>
+      <table class='table'>
+          <thead>
+              <tr>
+                  <th>{% translate 'Image' %}</th>
+                  <th>{% translate 'Name' %}</th>
+                  <th>{% translate 'Description' %}</th>
+                  <th>{% translate 'Price' %}</th>
+              </tr>
+          </thead>
+          {% for product in basket %}
+              <tr>
+                  <td><img class="image is-128x128 "src="{% static product.image %}"></td>
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.description }}</td>
+                  <td>{{ product.price }}</td>
+              </tr>
+          {% endfor %}
+      </table>
+    </div>
+  </section>
+  </body>
+</html>

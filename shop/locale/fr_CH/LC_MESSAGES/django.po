@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-04 16:08+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\templates\shop\basket.html:4
+msgid "Basket"
+msgstr "Panier"
+
+#: .\templates\shop\basket.html:20 .\templates\shop\index.html:22
+msgid "Check your basket"
+msgstr "Vérifier votre panier"
+
+#: .\templates\shop\basket.html:23
+msgid "Return"
+msgstr "Retour"
+
+#: .\templates\shop\basket.html:24
+msgid "Next"
+msgstr "Suivant"
+
+#: .\templates\shop\basket.html:29
+msgid "Image"
+msgstr "Image"
+
+#: .\templates\shop\basket.html:30
+msgid "Name"
+msgstr "Nom"
+
+#: .\templates\shop\basket.html:31
+msgid "Description"
+msgstr "Description"
+
+#: .\templates\shop\basket.html:32
+msgid "Price"
+msgstr "Prix"
+
+#: .\templates\shop\index.html:3
+msgid "Shop"
+msgstr "Magasin"
+
+#: .\templates\shop\index.html:19
+msgid "Add products in your basket"
+msgstr "Ajouter des produits dans votre panier"
+
+#: .\templates\shop\product.html:14
+msgid "Add"
+msgstr "Ajouter"
