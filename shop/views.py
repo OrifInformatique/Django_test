@@ -48,3 +48,6 @@ def show_basket(request):
     
     return render(request, 'shop/basket.html', context)
     
+def delete_basket(request):
+    request.session['basket'] = list()
+    return HttpResponse('')
