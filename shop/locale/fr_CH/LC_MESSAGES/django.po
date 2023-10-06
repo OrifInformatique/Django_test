@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-04 16:08+0200\n"
+"POT-Creation-Date: 2023-10-06 15:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,18 @@ msgstr "Description"
 #: .\templates\shop\basket.html:32
 msgid "Price"
 msgstr "Prix"
+
+#: .\templates\shop\basket.html:42
+msgid "Delete"
+msgstr "Supprimer"
+
+#: .\templates\shop\basket.html:47
+msgid "Total price:"
+msgstr "Prix total :"
+
+#: .\templates\shop\basket.html:52
+msgid "Delete all"
+msgstr "Supprimer tout"
 
 #: .\templates\shop\index.html:3
 msgid "Shop"

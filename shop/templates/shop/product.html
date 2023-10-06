@@ -11,7 +11,7 @@
         <p>{{ product.description }}</p>
         <strong>{{ product.price }}</strong>
         <div class="block">
-            <a href="add-basket/{{product.id}}" class="button is-primary">{% translate 'Add' %}</a>
+            <a href="{% url 'shop:add-basket' product.id %}" class="button is-primary">{% translate 'Add' %}</a>
         </div>
     </div>
 </div>

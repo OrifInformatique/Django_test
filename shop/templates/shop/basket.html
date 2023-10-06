@@ -20,7 +20,7 @@
           {% translate 'Check your basket' %}
       </p>
       <p class="block">
-          <a href=".." class='button is-link '>{% translate 'Return'%}</a>
+      <a href="{% url 'shop:index' %}" class='button is-link '>{% translate 'Return'%}</a>
           <a href="#" class='button is-primary '>{% translate 'Next'%}</a>
       </p>
       <table class='table'>
@@ -39,11 +39,17 @@
                   <td>{{ product.name }}</td>
                   <td>{{ product.description }}</td>
                   <td>{{ product.price }}</td>
-                  <td><a href="../delete-item-basket/{{ product.id }}" class='button is-danger '>{% translate 'Delete'%}</a></td>
+                  <td><a href="{% url 'shop:delete-item-basket'  product.id %}" class='button is-danger '>{% translate 'Delete'%}</a></td>
               </tr>
           {% endfor %}
+          <tfoot>
+              <tr>
+                  <td colspan='3'>{% translate 'Total price:' %}</td>
+                  <td colspan='2'>{{ total_price }}</td>
+              <tr>
+          </tfoot>
       </table>
-      <a href="../delete-basket" class='button is-danger '>{% translate 'Delete all'%}</a>
+          <a href="{% url 'shop:delete-basket'%}" class="button is-danger">{% translate 'Delete all'%}</a>
     </div>
   </section>
   </body>
