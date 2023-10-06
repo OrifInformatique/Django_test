@@ -51,3 +51,10 @@ def show_basket(request):
 def delete_basket(request):
     request.session['basket'] = list()
     return HttpResponse('')
+
+def delete_item_basket(request, id):
+    basket = request.session['basket']
+    basket.remove(id)
+    request.session['basket'] = basket
+    return HttpResponse(str(vars(request)))
+

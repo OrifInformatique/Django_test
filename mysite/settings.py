@@ -161,3 +161,7 @@ if DEBUG:
 
 mimetypes
 mimetypes.add_type("application/javascript", ".js", True)
+
+LOCALE_PATHS = [
+    'shop/locale',
+]
