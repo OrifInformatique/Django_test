@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }}</title>
+    <script src="{% static 'shop/scripts/addItem.js' %}"></script>
     <link rel="stylesheet" href="{% static 'shop/bulma.min.css' %}">
   </head>
   <body lang="fr-CH">
@@ -30,14 +31,5 @@
     </div>
     </div>
   </section>
-  <script>
-    // const addItem = async (url) => {
-    //     const response = await fetch(url);
-    // }
-    async function addItem(url) {
-        console.log(this);
-        const response = await fetch(url);
-    }
-  </script>
   </body>
 </html>

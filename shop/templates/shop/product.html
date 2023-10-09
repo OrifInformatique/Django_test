@@ -11,7 +11,7 @@
         <p>{{ product.description }}</p>
         <strong>{{ product.price }}</strong>
         <div class="block">
-            <button onClick="addItem('{% url 'shop:add-basket' product.id %}')" class="button is-primary">{% translate 'Add' %}</button>
+            <button onClick="addItem(this, '{% url 'shop:add-basket' product.id %}')" class="button is-primary">{% translate 'Add' %}</button>
             {% comment %}
             <a href="{% url 'shop:add-basket' product.id %}" class="button is-primary">{% translate 'Add' %}</a>
             {% endcomment %}

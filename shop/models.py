@@ -13,6 +13,20 @@ class Product(models.Model):
         return f'{self.name} {self.description} {self.price}'
 
 
+class Reservation(models.Model):
+    date = models.DateTimeField()
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=255)
+    products = models.ManyToManyField(Product, through='ReservationRow')
+
+
+class ReservationRow(models.Model):
+    number = models.IntegerField()
+    reduction = models.DecimalField(max_digits=12, decimal_places=2,
+                                    default=0);
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
 
 
 

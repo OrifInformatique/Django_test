@@ -3,12 +3,13 @@ from .models import Product
 from django.http import HttpResponse
 from functools import reduce
 from django.shortcuts import redirect
+import sys
 
 def set_url_image(product):
     try:
         product['image'] =  product['image'][11:] 
     except TypeError as e:
-        print(e)
+        print(e, file=sys.stderr)
         product.image =  product.image.name[11:] 
     return product
 
@@ -33,26 +34,45 @@ def add_basket(request, id):
         request.session['basket'] = basket
         return redirect('shop:index')
     except (KeyError, AttributeError) as e:
-        print(e)
+        print(e, file=sys.stderr)
         request.session['basket'] = list()
         return add_basket(request, id)
 
 
-def show_basket(request):
-    basket = request.session['basket']
-    def get_data(id):
+def get_data_for_show_basket(id):
+    try:
         return Product.objects.get(id=id)
+    except Exception as e:
+        print(e, file=sys.stderr)
 
-    basket_data = list(map(get_data, basket))
-    basket_with_url = list(map(set_url_image, basket_data))
+def get_basket_with_url(basket):
+    basket_data = tuple(map(get_data_for_show_basket, basket))
+    basket_data_noneless = tuple(filter(lambda product: product is not None,
+                                       basket_data))
+    basket_with_url = tuple(map(set_url_image, basket_data_noneless))
+    return basket_with_url
+
+def get_total_price(basket):
     def sum_price(accumulator, product):
-        print(product.price)
         return accumulator + product.price
-    total_price = reduce(sum_price, basket_with_url, 0)
+    total_price = reduce(sum_price, basket, 0)
+    return total_price
+
+def get_basket_from_session(request):
+    try:
+        basket = request.session['basket']
+    except (KeyError, AttributeError) as e:
+        print(e, file=sys.stderr)
+        request.session['basket'] = list()
+        basket = request.session['basket']
+    return basket
+
+def show_basket(request):
+    basket = get_basket_from_session(request)
+    basket_with_url = get_basket_with_url(basket)
     context = dict()
-    context['basket'] = list(basket_with_url)
-    context['total_price'] = total_price
-    
+    context['basket'] = basket_with_url
+    context['total_price'] = get_total_price(basket_with_url)
     return render(request, 'shop/basket.html', context)
     
 def delete_basket(request):
@@ -60,8 +80,11 @@ def delete_basket(request):
     return redirect('shop:show-basket')
 
 def delete_item_basket(request, id):
-    basket = request.session['basket']
-    basket.remove(id)
-    request.session['basket'] = basket
+    try:
+        basket = request.session['basket']
+        basket.remove(id)
+        request.session['basket'] = basket
+    except ValueError as e:
+        print(e, file=sys.stderr)
     return redirect('shop:show-basket')
 
