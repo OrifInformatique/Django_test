@@ -10,7 +10,7 @@
     <title>{{ title }}</title>
     <link rel="stylesheet" href="{% static 'shop/bulma.min.css' %}">
   </head>
-  <body lang="fr-CH">
+  <body>
   <section class="section">
     <div class="container">
       <h1 class="title">
@@ -21,7 +21,7 @@
       </p>
       <p class="block">
       <a href="{% url 'shop:index' %}" class='button is-link '>{% translate 'Return'%}</a>
-          <a href="#" class='button is-primary '>{% translate 'Next'%}</a>
+          <a href="{% url 'shop:reservation' %}" class='button is-primary '>{% translate 'Next'%}</a>
       </p>
       <table class='table'>
           <thead>

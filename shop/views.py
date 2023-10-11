@@ -3,6 +3,7 @@ from .models import Product
 from django.http import HttpResponse
 from functools import reduce
 from django.shortcuts import redirect
+from .forms import ResevationForm
 import sys
 
 def set_url_image(product):
@@ -14,9 +15,11 @@ def set_url_image(product):
     return product
 
 def index(request):
+    basket = request.session['basket']
     context = dict()
     context['products'] = Product.objects.all().values()
     context['products'] = list(map(set_url_image, context['products']))
+    context['itemNumberBasket'] = len(basket)
     return render(request, 'shop/index.html', context)
 
 def images(request, name):
@@ -88,3 +91,7 @@ def delete_item_basket(request, id):
         print(e, file=sys.stderr)
     return redirect('shop:show-basket')
 
+def reservation_form(request):
+    context = dict()
+    context['form'] = ResevationForm();
+    return render(request, 'shop/reservation-form.html', context)

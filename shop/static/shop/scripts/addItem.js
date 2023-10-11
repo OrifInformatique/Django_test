@@ -1,3 +1,15 @@
+let itemNumber = 0;
+const setItemNumber = (number) => {
+  itemNumber = number;
+  const span = document.querySelector('#basket-counter');
+  const spanContent = span.childNodes[0];
+  spanContent.textContent = itemNumber;
+
+  // const spanContent = document.createTextNode('test');
+  // span.appendChild(spanContent);
+  // console.log(spanContent);
+  // spanContent.textContent = 'a';
+}
 
 const addItem = async (button, url) => {
   const oldClassName = button.className;
@@ -9,4 +21,10 @@ const addItem = async (button, url) => {
   response = await response;
   button.className = oldClassName;
   button.disabled = oldDisabled;
+  setItemNumber(itemNumber + 1);
+
+}
+
+window.onload = () => {
+    
 }
