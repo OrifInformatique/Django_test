@@ -13,4 +13,5 @@ urlpatterns = [
     path('delete-item-basket/<int:id>', views.delete_item_basket,
             name='delete-item-basket'),
     path('reservation/', views.reservation_form, name='reservation'),
+    path('summary/', views.post_reservation_form, name='summary'),
 ]

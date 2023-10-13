@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 # Create your models here.
 
@@ -19,6 +20,10 @@ class Reservation(models.Model):
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
     products = models.ManyToManyField(Product, through='ReservationRow')
+    def __str__(self):
+        return (f'[{naturaltime(self.date)}] {self.first_name} '
+                f'{self.last_name.upper()} '
+                f'({len(self.products.get_queryset())})')
 
 
 class ReservationRow(models.Model):
@@ -27,6 +32,4 @@ class ReservationRow(models.Model):
                                     default=0);
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
-
-
 

@@ -1,9 +1,8 @@
 {% load static %}
 {% load i18n %}
-
 {% translate 'Basket' as title%}
 <!DOCTYPE html>
-<html lang='fr-CH'>
+<html lang="fr-CH">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,10 +19,14 @@
           {% translate 'Check your basket' %}
       </p>
       <p class="block">
-      <a href="{% url 'shop:index' %}" class='button is-link '>{% translate 'Return'%}</a>
-          <a href="{% url 'shop:reservation' %}" class='button is-primary '>{% translate 'Next'%}</a>
+          <a href="{% url 'shop:index' %}" class='button is-link '>{% translate 'Return'%}</a>
+          {% if basket|length == 0 %}
+              <button disabled class='button is-primary '>{% translate 'Next'%}</button>
+          {% else %}
+              <a href="{% url 'shop:reservation' %}" class='button is-primary '>{% translate 'Next'%}</a>
+          {% endif %}
       </p>
-      <table class='table'>
+      <table class="table">
           <thead>
               <tr>
                   <th>{% translate 'Image' %}</th>
@@ -39,13 +42,13 @@
                   <td>{{ product.name }}</td>
                   <td>{{ product.description }}</td>
                   <td>{{ product.price }}</td>
-                  <td><a href="{% url 'shop:delete-item-basket'  product.id %}" class='button is-danger '>{% translate 'Delete'%}</a></td>
+                  <td><a href="{% url 'shop:delete-item-basket'  product.id %}" class="button is-danger">{% translate 'Delete'%}</a></td>
               </tr>
           {% endfor %}
           <tfoot>
               <tr>
-                  <td colspan='3'>{% translate 'Total price:' %}</td>
-                  <td colspan='2'>{{ total_price }}</td>
+                  <td colspan="3">{% translate 'Total price:' %}</td>
+                  <td colspan="2">{{ total_price }}</td>
               <tr>
           </tfoot>
       </table>

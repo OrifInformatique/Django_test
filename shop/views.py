@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product
+from .models import Product, ReservationRow, Reservation
 from django.http import HttpResponse
 from functools import reduce
 from django.shortcuts import redirect
@@ -95,3 +95,55 @@ def reservation_form(request):
     context = dict()
     context['form'] = ResevationForm();
     return render(request, 'shop/reservation-form.html', context)
+
+def post_reservation_form(request):
+    try:
+        print(request.POST, type(request.POST), vars(request.POST),
+              request.POST['datetime'])
+        print(str(request.POST['datetime']))
+        context = dict()
+        reservation = Reservation.objects.create(date=request.POST['datetime'],
+                           first_name=request.POST['first_name'],
+                           last_name=request.POST['last_name'],
+                           phone_number=request.POST['phone_number'])
+        basket = request.session['basket']
+        formated_basket = get_number_each_item(basket)
+        print(formated_basket)
+        for row in formated_basket:
+            product = Product.objects.get(id=row['id'])
+            ReservationRow.objects.create(number=row['number'], reduction=0,
+                                  product=product, reservation=reservation)
+        request.session['basket'] = list()
+        return render(request, 'shop/summary.html', context)
+    except Exception as e:
+        print(e)
+
+def get_number_item_in_list(item_list, compared_item): 
+    print('begin get_number_item_in_list')
+    def count_same_item(accumulator, item):
+        print('begin count_same_item')
+        if item == compared_item:
+            accumulator += 1
+        return accumulator
+    return reduce(count_same_item, item_list, 0)
+    
+
+def get_number_each_item(basket):
+    print('begin get_number_each_item')
+    def get_number_and_id(item):
+        print('begin get_number_and_id')
+        print(basket)
+        row = dict()
+        row['number'] = get_number_item_in_list(basket, item)
+        row['id'] = item
+        return row
+    count_basket = list(map(get_number_and_id, basket))
+    def remove_duplicate(accumulator, item):
+        print('begin remove_duplicate')
+        if get_number_item_in_list(accumulator, item) > 1:
+            accumulator.remove(item)
+        return accumulator
+    duplicateless_count_basket = reduce(remove_duplicate, count_basket,
+                                        count_basket)
+    return duplicateless_count_basket
+
