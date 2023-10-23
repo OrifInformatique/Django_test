@@ -147,3 +147,23 @@ def get_number_each_item(basket):
                                         count_basket)
     return duplicateless_count_basket
 
+def get_invoice(request, id):
+    context = dict()
+    reservation = Reservation.objects.get(id=id)
+    products = list(map(set_url_image,
+            reservation.products.all()))
+    reservation_rows = reservation.reservationrow_set.all()
+    def merge(t):
+        reservation_row, product = t
+        row = dict()
+        row['Image'] = product.image
+        row['name'] = product.name
+        row['description'] = product.description
+        row['number'] = reservation_row.number
+        unit_price = product.price
+        row['price'] = row['number'] * unit_price
+        return row
+    merged_reservation_rows = list(map(merge, zip(reservation_rows, products)))
+    context['reservation_rows'] = merged_reservation_rows
+    context['reservation'] = reservation
+    return render(request, 'shop/invoice.html', context)

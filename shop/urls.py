@@ -14,4 +14,5 @@ urlpatterns = [
             name='delete-item-basket'),
     path('reservation/', views.reservation_form, name='reservation'),
     path('summary/', views.post_reservation_form, name='summary'),
+    path('invoice/<int:id>', views.get_invoice, name='invoice'),
 ]

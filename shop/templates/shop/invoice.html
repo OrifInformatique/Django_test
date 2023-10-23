@@ -1,0 +1,60 @@
+{% load static %}
+{% load i18n %}
+{% translate 'Basket' as title%}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="fr-CH">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'shop/bulma.min.css' %}">
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+      <section class="section">
+        <div class="container">
+          <h1 class="title">
+              {{ title }}
+          </h1>
+          <p class="subtitle">
+              {% translate 'Invoice' %}
+          </p>
+          <p>{% translate 'First name: ' %}{{ reservation.first_name }}</p>
+          <p>{% translate 'Last name: ' %}{{ reservation.last_name }}</p>
+          <p>{% translate 'Phone number: ' %}{{ reservation.phone_number }}</p>
+          <p>{% translate 'For: ' %}{{ reservation.date|naturaltime }}</p>
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>{% translate 'Image' %}</th>
+                      <th>{% translate 'Name' %}</th>
+                      <th>{% translate 'Description' %}</th>
+                      <th>{% translate 'Number' %}</th>
+                      <th>{% translate 'Price' %}</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              {% for product in reservation_rows %}
+                  <tr>
+                      <td><img class="image" width="128" src="{% static product.image %}"></td>
+                      <td>{{ product.name }}</td>
+                      <td>{{ product.description }}</td>
+                      <td>{{ product.number }}</td>
+                      <td>{{ product.price }}</td>
+                  </tr>
+              {% endfor %}
+              <tfoot>
+                  <tr>
+                      <td colspan="3">{% translate 'Total price:' %}</td>
+                      <td colspan="2">{{ total_price }}</td>
+                  <tr>
+              </tfoot>
+          </table>
+        </div>
+      </section>
+    {% else %}
+      <p>{% translate 'Unauthorised' %}</p>
+    {% endif%}
+  </body>
+</html>

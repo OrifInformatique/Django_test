@@ -23,7 +23,7 @@ class Reservation(models.Model):
     def __str__(self):
         return (f'[{naturaltime(self.date)}] {self.first_name} '
                 f'{self.last_name.upper()} '
-                f'({len(self.products.get_queryset())})')
+                f'({len(self.products.all())})')
 
 
 class ReservationRow(models.Model):
