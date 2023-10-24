@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-13 14:33+0200\n"
+"POT-Creation-Date: 2023-10-24 14:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,39 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: .\templates\admin\_base_site.html:3
+msgid "Django site admin"
+msgstr ""
+
+#: .\templates\admin\_index.html:23
+#, fuzzy
+#| msgid "Reservation"
+msgid "Recent actions"
+msgstr "Réservation"
+
+#: .\templates\admin\_index.html:24
+msgid "My actions"
+msgstr ""
+
+#: .\templates\admin\_index.html:28
+msgid "None available"
+msgstr ""
+
+#: .\templates\admin\_index.html:42
+msgid "Unknown content"
+msgstr ""
+
+#: .\shop\admin.py:18 .\shop\templates\shop\reservation-form.html:4
+msgid "Reservation"
+msgstr "Réservation"
+
+#: .\shop\admin.py:22 .\shop\templates\shop\invoice.html:3
+msgid "Invoice"
+msgstr "Facture"
+
+#: .\shop\admin.py:28
+msgid "see"
+msgstr "voir"
 
 #: .\shop\forms.py:6
 msgid "Day and time"
@@ -51,15 +84,15 @@ msgstr "Retour"
 msgid "Next"
 msgstr "Suivant"
 
-#: .\shop\templates\shop\basket.html:32
+#: .\shop\templates\shop\basket.html:32 .\shop\templates\shop\invoice.html:31
 msgid "Image"
 msgstr "Image"
 
-#: .\shop\templates\shop\basket.html:33
+#: .\shop\templates\shop\basket.html:33 .\shop\templates\shop\invoice.html:32
 msgid "Name"
 msgstr "Nom"
 
-#: .\shop\templates\shop\basket.html:34
+#: .\shop\templates\shop\basket.html:34 .\shop\templates\shop\invoice.html:33
 msgid "Description"
 msgstr "Description"
 
@@ -71,7 +104,7 @@ msgstr "Prix"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: .\shop\templates\shop\basket.html:50
+#: .\shop\templates\shop\basket.html:50 .\shop\templates\shop\invoice.html:51
 msgid "Total price:"
 msgstr "Prix total :"
 
@@ -87,13 +120,41 @@ msgstr "Magasin"
 msgid "Add products in your basket"
 msgstr "Ajouter des produits dans votre panier"
 
+#: .\shop\templates\shop\invoice.html:23
+msgid "First name: "
+msgstr "Prénom : "
+
+#: .\shop\templates\shop\invoice.html:24
+msgid "Last name: "
+msgstr "Nom : "
+
+#: .\shop\templates\shop\invoice.html:25
+msgid "Phone number: "
+msgstr "Numéro de téléphone : "
+
+#: .\shop\templates\shop\invoice.html:26
+msgid "For: "
+msgstr "Pour : "
+
+#: .\shop\templates\shop\invoice.html:30
+msgid "Quantity"
+msgstr "Quantité"
+
+#: .\shop\templates\shop\invoice.html:34
+msgid "Unit Price"
+msgstr "Prix unitaire"
+
+#: .\shop\templates\shop\invoice.html:35
+msgid "Amount"
+msgstr "Montant"
+
+#: .\shop\templates\shop\invoice.html:59
+msgid "Unauthorised"
+msgstr "Non autorisé"
+
 #: .\shop\templates\shop\product.html:14
 msgid "Add"
 msgstr "Ajouter"
-
-#: .\shop\templates\shop\reservation-form.html:4
-msgid "Reservation"
-msgstr "Réservation"
 
 #: .\shop\templates\shop\reservation-form.html:20
 msgid "Type your contact information"
@@ -105,7 +166,7 @@ msgstr "Récapitulatif"
 
 #: .\shop\templates\shop\summary.html:19
 msgid "Your reservation has been sended."
-msgstr "Votre réservation a été envoyée"
+msgstr "Votre réservation a été envoyée."
 
 #: .\shop\templates\shop\summary.html:22
 msgid "Home"
