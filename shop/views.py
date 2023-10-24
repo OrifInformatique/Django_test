@@ -19,7 +19,7 @@ def index(request):
     context = dict()
     context['products'] = Product.objects.all().values()
     context['products'] = list(map(set_url_image, context['products']))
-    context['itemNumberBasket'] = len(basket)
+    context['basketQuantity'] = len(basket)
     return render(request, 'shop/index.html', context)
 
 def images(request, name):
@@ -108,7 +108,7 @@ def post_reservation_form(request):
         print(formated_basket)
         for row in formated_basket:
             product = Product.objects.get(id=row['id'])
-            ReservationRow.objects.create(number=row['quantity'], reduction=0,
+            ReservationRow.objects.create(quantity=row['quantity'], reduction=0,
                                   product=product, reservation=reservation)
         request.session['basket'] = list()
         return render(request, 'shop/summary.html', context)
@@ -141,7 +141,7 @@ def get_invoice(request, id):
         data['image'] = row.product.image.name[11:]
         data['name'] = row.product.name
         data['description'] = row.product.description
-        data['quantity'] = row.number
+        data['quantity'] = row.quantity
         data['unit_price'] = row.product.price
         data['amount'] = data['quantity'] * data['unit_price']
         return data

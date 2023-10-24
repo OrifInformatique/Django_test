@@ -1,9 +1,9 @@
-let itemNumber = 0;
-const setItemNumber = (number) => {
-  itemNumber = number;
+let itemQuantity = 0;
+const setItemQuantity = (quantity) => {
+  itemQuantity = quantity;
   const span = document.querySelector('#basket-counter');
   const spanContent = span.childNodes[0];
-  spanContent.textContent = itemNumber;
+  spanContent.textContent = itemQuantity;
 
   // const spanContent = document.createTextNode('test');
   // span.appendChild(spanContent);
@@ -21,7 +21,7 @@ const addItem = async (button, url) => {
   response = await response;
   button.className = oldClassName;
   button.disabled = oldDisabled;
-  setItemNumber(itemNumber + 1);
+  setItemQuantity(itemQuantity + 1);
 
 }
 

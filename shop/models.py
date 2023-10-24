@@ -28,11 +28,11 @@ class Reservation(models.Model):
 
 
 class ReservationRow(models.Model):
-    number = models.IntegerField()
+    quantity = models.IntegerField()
     reduction = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'quantity: {self.number} reduction: {self.reduction}'
+        return f'quantity: {self.quantity} reduction: {self.reduction}'
 
