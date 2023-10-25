@@ -30,16 +30,18 @@ def invoice_link(obj):
 
 class ReservationAdmin(admin.ModelAdmin):
     inlines = [ReservationRowInline]
-    # fieldsets = [
-    #       (
-    #           None,
-    #           {
-    #               "fields": [],
-    #               "description":
-    #               '<a href="http://127.0.0.1:8000/invoice/16">f</a>' 
-    #           },
-    #       ),
-    #   ]
+
+    fieldsets = [
+          (
+              None,
+              {
+                  "fields": ['date', 'first_name', 'last_name',
+                             'phone_number'],
+                  "description":
+                  '<a href="http://127.0.0.1:8000/invoice/16">f</a>' 
+              },
+          ),
+      ]
     list_display = [description, invoice_link]
 
 
