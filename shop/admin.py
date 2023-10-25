@@ -7,30 +7,23 @@ from django.urls import reverse
 
 from .models import Product, Reservation, ReservationRow
 
-admin.site.register(Product)
-# admin.site.register(Reservation)
-# admin.site.register(ReservationRow)
 
 class ReservationRowInline(admin.TabularInline):
     model = ReservationRow
     extra = 3
 
-@admin.display(description=_("Reservation"))
-def description(obj):
-    return f"{obj}"
 
 @admin.display(description=_("Invoice"))
 def invoice_link(obj):
-    # return f'<a href="/invoice/{obj.id}">lien</a>'
     return format_html(
         '<a href="{}" target="_blank">{}</a>',
         reverse('shop:invoice', args=[obj.id]),
         _('see')
     )
 
+@admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
     inlines = [ReservationRowInline]
-
     fieldsets = [
           (
               None,
@@ -42,9 +35,15 @@ class ReservationAdmin(admin.ModelAdmin):
               },
           ),
       ]
-    list_display = [description, invoice_link]
+    list_display = ('date', 'first_name', 'last_name', 'phone_number',
+                    invoice_link)
+    list_filter = ['date']
+    search_fields = ['first_name', 'last_name', 'phone_number',
+                     'products__name']
+    list_per_page = 100
 
-
-admin.site.register(Reservation, ReservationAdmin)
-
-
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'price')
+    search_fields = ['name', 'description']
+    list_per_page = 100

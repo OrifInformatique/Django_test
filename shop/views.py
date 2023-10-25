@@ -10,17 +10,24 @@ def set_url_image(product):
     try:
         product['image'] =  product['image'][11:] 
     except TypeError as e:
-        print(e, file=sys.stderr)
+        print(type(e), e, file=sys.stderr)
         product.image =  product.image.name[11:] 
     return product
 
 def index(request):
-    basket = request.session['basket']
     context = dict()
     context['products'] = Product.objects.all().values()
     context['products'] = list(map(set_url_image, context['products']))
-    context['basketQuantity'] = len(basket)
+    context['basketQuantity'] = get_basket(request)
     return render(request, 'shop/index.html', context)
+
+def get_basket(request):
+    try:
+        basket = request.session['basket']
+        return len(basket)
+    except KeyError as e:
+        print(type(e), e, file=sys.stderr)
+    return 0
 
 def images(request, name):
     context = dict()
@@ -37,7 +44,7 @@ def add_basket(request, id):
         request.session['basket'] = basket
         return redirect('shop:index')
     except (KeyError, AttributeError) as e:
-        print(e, file=sys.stderr)
+        print(type(e), e, file=sys.stderr)
         request.session['basket'] = list()
         return add_basket(request, id)
 
@@ -46,7 +53,7 @@ def get_data_for_show_basket(id):
     try:
         return Product.objects.get(id=id)
     except Exception as e:
-        print(e, file=sys.stderr)
+        print(type(e), e, file=sys.stderr)
 
 def get_basket_with_url(basket):
     basket_data = tuple(map(get_data_for_show_basket, basket))
@@ -65,7 +72,7 @@ def get_basket_from_session(request):
     try:
         basket = request.session['basket']
     except (KeyError, AttributeError) as e:
-        print(e, file=sys.stderr)
+        print(type(e), e, file=sys.stderr)
         request.session['basket'] = list()
         basket = request.session['basket']
     return basket
@@ -88,7 +95,7 @@ def delete_item_basket(request, id):
         basket.remove(id)
         request.session['basket'] = basket
     except ValueError as e:
-        print(e, file=sys.stderr)
+        print(type(e), e, file=sys.stderr)
     return redirect('shop:show-basket')
 
 def reservation_form(request):
@@ -105,7 +112,6 @@ def post_reservation_form(request):
                            phone_number=request.POST['phone_number'])
         basket = request.session['basket']
         formated_basket = get_quantity_each_item(basket)
-        print(formated_basket)
         for row in formated_basket:
             product = Product.objects.get(id=row['id'])
             ReservationRow.objects.create(quantity=row['quantity'], reduction=0,
@@ -113,7 +119,7 @@ def post_reservation_form(request):
         request.session['basket'] = list()
         return render(request, 'shop/summary.html', context)
     except Exception as e:
-        print(e)
+        print(type(e), e, file=sys.stderr)
 
     
 
@@ -146,7 +152,6 @@ def get_invoice(request, id):
         data['amount'] = data['quantity'] * data['unit_price']
         return data
     formated_reservation = tuple(map(format_reservation, reservation_rows))
-    print(formated_reservation)
     context['formated_reservation'] = formated_reservation
     context['reservation'] = reservation
     context['total_price'] = reduce(lambda acc, row: acc + row['amount'],

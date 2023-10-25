@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 14:12+0200\n"
+"POT-Creation-Date: 2023-10-25 14:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,10 +22,8 @@ msgid "Django site admin"
 msgstr ""
 
 #: .\templates\admin\_index.html:23
-#, fuzzy
-#| msgid "Reservation"
 msgid "Recent actions"
-msgstr "Réservation"
+msgstr ""
 
 #: .\templates\admin\_index.html:24
 msgid "My actions"
@@ -39,39 +37,94 @@ msgstr ""
 msgid "Unknown content"
 msgstr ""
 
-#: .\shop\admin.py:18 .\shop\templates\shop\reservation-form.html:4
-msgid "Reservation"
-msgstr "Réservation"
-
-#: .\shop\admin.py:22 .\shop\templates\shop\invoice.html:3
+#: .\shop\admin.py:18 .\shop\templates\shop\invoice.html:3
 msgid "Invoice"
 msgstr "Facture"
 
-#: .\shop\admin.py:28
+#: .\shop\admin.py:23
 msgid "see"
 msgstr "voir"
+
+#: .\shop\apps.py:8 .\shop\templates\shop\index.html:4
+msgid "Shop"
+msgstr "Magasin"
 
 #: .\shop\forms.py:6
 msgid "Day and time"
 msgstr "Jour et heure"
 
-#: .\shop\forms.py:7
+#: .\shop\forms.py:7 .\shop\models.py:27
 msgid "First name"
 msgstr "Prénom"
 
-#: .\shop\forms.py:8
+#: .\shop\forms.py:8 .\shop\models.py:28
 msgid "Last name"
 msgstr "Nom"
 
-#: .\shop\forms.py:9
+#: .\shop\forms.py:9 .\shop\models.py:30
 msgid "Phone number"
 msgstr "Numéro de téléphone"
+
+#: .\shop\models.py:9 .\shop\templates\shop\basket.html:33
+#: .\shop\templates\shop\invoice.html:32
+msgid "Name"
+msgstr "Nom"
+
+#: .\shop\models.py:11 .\shop\templates\shop\basket.html:34
+msgid "Description"
+msgstr "Description"
+
+#: .\shop\models.py:13 .\shop\templates\shop\basket.html:35
+msgid "Price"
+msgstr "Prix"
+
+#: .\shop\models.py:15 .\shop\templates\shop\basket.html:32
+#: .\shop\templates\shop\invoice.html:31
+msgid "Image"
+msgstr "Image"
+
+#: .\shop\models.py:21 .\shop\models.py:49
+msgid "Product"
+msgstr "Produit"
+
+#: .\shop\models.py:22 .\shop\models.py:32
+msgid "Products"
+msgstr "Produits"
+
+#: .\shop\models.py:26
+msgid "Date"
+msgstr ""
+
+#: .\shop\models.py:40 .\shop\models.py:51
+#: .\shop\templates\shop\reservation-form.html:4
+msgid "Reservation"
+msgstr "Réservation"
+
+#: .\shop\models.py:41
+msgid "Reservations"
+msgstr "Réservations"
+
+#: .\shop\models.py:45 .\shop\templates\shop\invoice.html:30
+msgid "Quantity"
+msgstr "Quantité"
+
+#: .\shop\models.py:47
+msgid "Reduction"
+msgstr "Réduction"
+
+#: .\shop\models.py:57
+msgid "Reservation row"
+msgstr "Réservation ligne"
+
+#: .\shop\models.py:58
+msgid "Reservation rows"
+msgstr "Réservation lignes"
 
 #: .\shop\templates\shop\basket.html:3
 msgid "Basket"
 msgstr "Panier"
 
-#: .\shop\templates\shop\basket.html:19 .\shop\templates\shop\index.html:25
+#: .\shop\templates\shop\basket.html:19 .\shop\templates\shop\index.html:28
 msgid "Check your basket"
 msgstr "Vérifier votre panier"
 
@@ -84,27 +137,11 @@ msgstr "Retour"
 msgid "Next"
 msgstr "Suivant"
 
-#: .\shop\templates\shop\basket.html:32 .\shop\templates\shop\invoice.html:31
-msgid "Image"
-msgstr "Image"
-
-#: .\shop\templates\shop\basket.html:33 .\shop\templates\shop\invoice.html:32
-msgid "Name"
-msgstr "Nom"
-
-#: .\shop\templates\shop\basket.html:34 .\shop\templates\shop\invoice.html:33
-msgid "Description"
-msgstr "Description"
-
-#: .\shop\templates\shop\basket.html:35
-msgid "Price"
-msgstr "Prix"
-
 #: .\shop\templates\shop\basket.html:45
 msgid "Delete"
 msgstr "Supprimer"
 
-#: .\shop\templates\shop\basket.html:50 .\shop\templates\shop\invoice.html:51
+#: .\shop\templates\shop\basket.html:50 .\shop\templates\shop\invoice.html:57
 msgid "Total price:"
 msgstr "Prix total :"
 
@@ -112,11 +149,7 @@ msgstr "Prix total :"
 msgid "Delete all"
 msgstr "Supprimer tout"
 
-#: .\shop\templates\shop\index.html:4
-msgid "Shop"
-msgstr "Magasin"
-
-#: .\shop\templates\shop\index.html:21
+#: .\shop\templates\shop\index.html:24
 msgid "Add products in your basket"
 msgstr "Ajouter des produits dans votre panier"
 
@@ -136,19 +169,15 @@ msgstr "Numéro de téléphone : "
 msgid "For: "
 msgstr "Pour : "
 
-#: .\shop\templates\shop\invoice.html:30
-msgid "Quantity"
-msgstr "Quantité"
-
-#: .\shop\templates\shop\invoice.html:34
+#: .\shop\templates\shop\invoice.html:37
 msgid "Unit Price"
 msgstr "Prix unitaire"
 
-#: .\shop\templates\shop\invoice.html:35
+#: .\shop\templates\shop\invoice.html:38
 msgid "Amount"
 msgstr "Montant"
 
-#: .\shop\templates\shop\invoice.html:59
+#: .\shop\templates\shop\invoice.html:65
 msgid "Unauthorised"
 msgstr "Non autorisé"
 
