@@ -1,14 +1,11 @@
-let itemQuantity = 0;
 const setItemQuantity = (quantity) => {
   itemQuantity = quantity;
-  const span = document.querySelector('#basket-counter');
-  const spanContent = span.childNodes[0];
-  spanContent.textContent = itemQuantity;
-
-  // const spanContent = document.createTextNode('test');
-  // span.appendChild(spanContent);
-  // console.log(spanContent);
-  // spanContent.textContent = 'a';
+  const render = (itemQuantity) => {
+    const span = document.querySelector('#basket-counter');
+    const spanContent = span.childNodes[0];
+    spanContent.textContent = itemQuantity;
+  }
+  render(itemQuantity);
 }
 
 const addItem = async (button, url) => {
@@ -22,9 +19,8 @@ const addItem = async (button, url) => {
   button.className = oldClassName;
   button.disabled = oldDisabled;
   setItemQuantity(itemQuantity + 1);
-
 }
 
 window.onload = () => {
-    
+  setItemQuantity(itemQuantity);
 }

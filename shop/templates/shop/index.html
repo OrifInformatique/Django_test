@@ -8,30 +8,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }}</title>
+    <script>
+      let itemQuantity = {{ basketQuantity }};
+    </script>
     <script src="{% static 'shop/scripts/addItem.js' %}"></script>
     <link rel="stylesheet" href="{% static 'shop/bulma.min.css' %}">
   </head>
-  <body onload='setItemQuantity({{ basketQuantity }})'>
+  <body>
   <section class="section">
     <div class="container">
       <h1 class="title">
-          {{ title }}
+        {{ title }}
       </h1>
       <p  class="subtitle">
-          {% translate 'Add products in your basket' %}
+        {% translate 'Add products in your basket' %}
       </p>
       <p class="block">
-          <a href="{% url 'shop:show-basket' %}" class='button is-link '>
-              {% translate 'Check your basket'%} (<span id="basket-counter">0</span>)
-          </a>
+        <a href="{% url 'shop:show-basket' %}" class='button is-link '>
+          {% translate 'Check your basket'%} (<span id="basket-counter">0</span>)
+        </a>
       </p>
-    <div class="columns is-multiline">
+      <div class="columns is-multiline">
         {% for product in products %}
-            <div class="column is-one-quarter">
-                {% include "shop/product.html" with product=product %}
-            </div>
+          <div class="column is-one-quarter">
+            {% include "shop/product.html" with product=product %}
+          </div>
         {% endfor %}
-    </div>
+      </div>
     </div>
   </section>
   </body>

@@ -1,20 +1,20 @@
 {% load static %}
 {% load i18n %}
 <div class="card">
-    <div class="card-image">
-        <figure class="image">
-        <img src="{% static product.image %}">
-        </figure>
+  <div class="card-image">
+    <figure class="image">
+      <img src="{% static product.image %}">
+    </figure>
+  </div>
+  <div class="card-content">
+    <h2 class="title is-2">{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <strong>{{ product.price }}</strong>
+    <div class="block">
+      <button onClick="addItem(this, '{% url 'shop:add-basket' product.id %}')" class="button is-primary">{% translate 'Add' %}</button>
+      {% comment %}
+      <a href="{% url 'shop:add-basket' product.id %}" class="button is-primary">{% translate 'Add' %}</a>
+      {% endcomment %}
     </div>
-    <div class="card-content">
-        <h2 class="title is-2">{{ product.name }}<h2>
-        <p>{{ product.description }}</p>
-        <strong>{{ product.price }}</strong>
-        <div class="block">
-            <button onClick="addItem(this, '{% url 'shop:add-basket' product.id %}')" class="button is-primary">{% translate 'Add' %}</button>
-            {% comment %}
-            <a href="{% url 'shop:add-basket' product.id %}" class="button is-primary">{% translate 'Add' %}</a>
-            {% endcomment %}
-        </div>
-    </div>
+  </div>
 </div>

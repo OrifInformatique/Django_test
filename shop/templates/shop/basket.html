@@ -13,46 +13,46 @@
   <section class="section">
     <div class="container">
       <h1 class="title">
-          {{ title }}
+        {{ title }}
       </h1>
       <p class="subtitle">
-          {% translate 'Check your basket' %}
+      {% translate 'Check your basket' %}
       </p>
       <p class="block">
-          <a href="{% url 'shop:index' %}" class='button is-link '>{% translate 'Return'%}</a>
-          {% if basket|length == 0 %}
-              <button disabled class='button is-primary '>{% translate 'Next'%}</button>
-          {% else %}
-              <a href="{% url 'shop:reservation' %}" class='button is-primary '>{% translate 'Next'%}</a>
-          {% endif %}
+      <a href="{% url 'shop:index' %}" class='button is-link '>{% translate 'Return'%}</a>
+      {% if basket|length == 0 %}
+        <button disabled class='button is-primary '>{% translate 'Next'%}</button>
+      {% else %}
+        <a href="{% url 'shop:reservation' %}" class='button is-primary '>{% translate 'Next'%}</a>
+      {% endif %}
       </p>
       <table class="table">
-          <thead>
-              <tr>
-                  <th>{% translate 'Image' %}</th>
-                  <th>{% translate 'Name' %}</th>
-                  <th>{% translate 'Description' %}</th>
-                  <th>{% translate 'Price' %}</th>
-                  <th></th>
-              </tr>
-          </thead>
-          {% for product in basket %}
-              <tr>
-                  <td><img class="image" width="128" src="{% static product.image %}"></td>
-                  <td>{{ product.name }}</td>
-                  <td>{{ product.description }}</td>
-                  <td>{{ product.price }}</td>
-                  <td><a href="{% url 'shop:delete-item-basket'  product.id %}" class="button is-danger">{% translate 'Delete'%}</a></td>
-              </tr>
-          {% endfor %}
-          <tfoot>
-              <tr>
-                  <td colspan="3">{% translate 'Total price:' %}</td>
-                  <td colspan="2">{{ total_price }}</td>
-              <tr>
-          </tfoot>
+        <thead>
+          <tr>
+            <th>{% translate 'Image' %}</th>
+            <th>{% translate 'Name' %}</th>
+            <th>{% translate 'Description' %}</th>
+            <th>{% translate 'Price' %}</th>
+            <th></th>
+          </tr>
+        </thead>
+        {% for product in basket %}
+          <tr>
+            <td><img class="image" width="128" src="{% static product.image %}"></td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price }}</td>
+            <td><a href="{% url 'shop:delete-item-basket'  product.id %}" class="button is-danger">{% translate 'Delete'%}</a></td>
+          </tr>
+        {% endfor %}
+        <tfoot>
+          <tr>
+            <td colspan="3">{% translate 'Total price:' %}</td>
+            <td colspan="2">{{ total_price }}</td>
+            <tr>
+        </tfoot>
       </table>
-          <a href="{% url 'shop:delete-basket'%}" class="button is-danger">{% translate 'Delete all'%}</a>
+      <a href="{% url 'shop:delete-basket'%}" class="button is-danger">{% translate 'Delete all'%}</a>
     </div>
   </section>
   </body>

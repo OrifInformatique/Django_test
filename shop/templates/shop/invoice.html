@@ -15,47 +15,47 @@
       <section class="section">
         <div class="container">
           <h1 class="title">
-              {{ title }}
+            {{ title }}
           </h1>
           <p class="subtitle">
-              {% now "DATETIME_FORMAT" %}
+          {% now "DATETIME_FORMAT" %}
           </p>
           <p>{% translate 'First name: ' %}{{ reservation.first_name }}</p>
           <p>{% translate 'Last name: ' %}{{ reservation.last_name }}</p>
           <p>{% translate 'Phone number: ' %}{{ reservation.phone_number }}</p>
           <p>{% translate 'For: ' %}{{reservation.date}} ({{ reservation.date|naturaltime }})</p>
           <table class="table">
-              <thead>
-                  <tr>
-                      <th>{% translate 'Quantity' %}</th>
-                      <th>{% translate 'Image' %}</th>
-                      <th>{% translate 'Name' %}</th>
-                      {% comment %}
-                      <th>{% translate 'Description' %}</th>
-                      {% endcomment %}
-                      <th>{% translate 'Unit Price' %}</th>
-                      <th>{% translate 'Amount' %}</th>
-                      <th></th>
-                  </tr>
-              </thead>
-              {% for product in formated_reservation %}
-                  <tr>
-                      <td>{{ product.quantity }}</td>
-                      <td><img class="image" width="128" src="{% static product.image %}"></td>
-                      <td>{{ product.name }}</td>
-                      {% comment %}
-                      <td>{{ product.description }}</td>
-                      {% endcomment %}
-                      <td>{{ product.unit_price }}</td>
-                      <td>{{ product.amount }}</td>
-                  </tr>
-              {% endfor %}
-              <tfoot>
-                  <tr>
-                      <td colspan="4">{% translate 'Total price:' %}</td>
-                      <td colspan="1">{{ total_price }}</td>
-                  <tr>
-              </tfoot>
+            <thead>
+              <tr>
+                <th>{% translate 'Quantity' %}</th>
+                <th>{% translate 'Image' %}</th>
+                <th>{% translate 'Name' %}</th>
+                {% comment %}
+                <th>{% translate 'Description' %}</th>
+                {% endcomment %}
+                <th>{% translate 'Unit Price' %}</th>
+                <th>{% translate 'Amount' %}</th>
+                <th></th>
+              </tr>
+            </thead>
+            {% for product in formated_reservation %}
+              <tr>
+                <td>{{ product.quantity }}</td>
+                <td><img class="image" width="128" src="{% static product.image %}"></td>
+                <td>{{ product.name }}</td>
+                {% comment %}
+                <td>{{ product.description }}</td>
+                {% endcomment %}
+                <td>{{ product.unit_price }}</td>
+                <td>{{ product.amount }}</td>
+              </tr>
+            {% endfor %}
+            <tfoot>
+              <tr>
+                <td colspan="4">{% translate 'Total price:' %}</td>
+                <td colspan="1">{{ total_price }}</td>
+                <tr>
+            </tfoot>
           </table>
         </div>
       </section>
