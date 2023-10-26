@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="buttons">
+  <a class="button {% if category_now == None %} is-active{% endif %}" href="{% url 'shop:index' %}">
+      {% translate 'All' %}
+  </a>
+  {% for category in categories %}
+    <a class="button {% if category_now == category.name %} is-active{% endif %}"
+      href="{% url 'shop:show-products' category.name %}"
+    >
+      {{ category.name|capfirst }}
+    </a>
+  {% endfor %}
+</div>

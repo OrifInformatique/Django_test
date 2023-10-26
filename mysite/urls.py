@@ -20,9 +20,12 @@ from django.urls import include, path
 urlpatterns = [
 #    path("__debug__/", include("debug_toolbar.urls")),
     # path("", include("polls.urls")),
-    path("polls/", include("polls.urls")),
-    path("shop/", include("shop.urls")),
     path('admin/', admin.site.urls),
+    path("shop/", include("shop.urls")),
+    path("", include("shop.urls")),
+    path("<category>", include("shop.urls")),
+    # path("<int:category_id>", include("shop.urls")),
+    # path("polls/", include("polls.urls")),
 ]
 
 from django.conf import settings

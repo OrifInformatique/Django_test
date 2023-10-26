@@ -1,18 +1,57 @@
 from django.contrib import admin
+from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 
 # Register your models here.
 
-from .models import Product, Reservation, ReservationRow
+from .models import Product, Reservation, ReservationRow, Category
 
-admin.site.register(Product)
-# admin.site.register(Reservation)
-# admin.site.register(ReservationRow)
 
 class ReservationRowInline(admin.TabularInline):
     model = ReservationRow
     extra = 3
 
+
+@admin.display(description=_("Invoice"))
+def invoice_link(obj):
+    return format_html(
+        '<a href="{}" target="_blank">{}</a>',
+        reverse('shop:invoice', args=[obj.id]),
+        _('see')
+    )
+
+@admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
     inlines = [ReservationRowInline]
+    fieldsets = [
+          (
+              None,
+              {
+                  "fields": ['date', 'first_name', 'last_name',
+                             'phone_number'],
+                  "description":
+                  '<a href="http://127.0.0.1:8000/invoice/16">f</a>' 
+              },
+          ),
+      ]
+    list_display = ('date', 'first_name', 'last_name', 'phone_number',
+                    invoice_link)
+    list_filter = ['date']
+    search_fields = ['first_name', 'last_name', 'phone_number',
+                     'products__name']
+    list_per_page = 100
 
-admin.site.register(Reservation, ReservationAdmin)
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'price', 'category')
+    search_fields = ['name', 'description']
+    list_filter = ['category']
+    list_per_page = 100
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
+    search_fields = ['name', 'description']
+    list_per_page = 100
+

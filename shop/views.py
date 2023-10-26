@@ -1,8 +1,7 @@
-from django.shortcuts import render
-from .models import Product, ReservationRow, Reservation
+from django.shortcuts import render, redirect
+from .models import Product, ReservationRow, Reservation, Category
 from django.http import HttpResponse
-from functools import reduce
-from django.shortcuts import redirect
+from functools import reduce, singledispatch
 from .forms import ResevationForm
 import sys
 
@@ -10,17 +9,43 @@ def set_url_image(product):
     try:
         product['image'] =  product['image'][11:] 
     except TypeError as e:
-        print(e, file=sys.stderr)
+        print(type(e), e, file=sys.stderr)
         product.image =  product.image.name[11:] 
     return product
 
-def index(request):
-    basket = request.session['basket']
+
+def show_products(request, category=None):
+    try:
+        products= get_products(int(category))
+    except Exception as _:
+        products = get_products(category)
     context = dict()
-    context['products'] = Product.objects.all().values()
-    context['products'] = list(map(set_url_image, context['products']))
-    context['itemNumberBasket'] = len(basket)
+    context['categories'] = Category.objects.all().values('name')
+    context['products'] = list(map(set_url_image, products))
+    context['basketQuantity'] = get_basket(request)
+    context['category_now'] = category
     return render(request, 'shop/index.html', context)
+
+@singledispatch
+def get_products(category: None):
+    return Product.objects.all().values()
+
+@get_products.register
+def _(category: str):
+    return Product.objects.filter(category__name=category).values()
+
+@get_products.register
+def _(category: int):
+    return Product.objects.filter(category__id=category).values()
+
+
+def get_basket(request):
+    try:
+        basket = request.session['basket']
+        return len(basket)
+    except KeyError as e:
+        print(type(e), e, file=sys.stderr)
+    return 0
 
 def images(request, name):
     context = dict()
@@ -37,7 +62,7 @@ def add_basket(request, id):
         request.session['basket'] = basket
         return redirect('shop:index')
     except (KeyError, AttributeError) as e:
-        print(e, file=sys.stderr)
+        print(type(e), e, file=sys.stderr)
         request.session['basket'] = list()
         return add_basket(request, id)
 
@@ -46,7 +71,7 @@ def get_data_for_show_basket(id):
     try:
         return Product.objects.get(id=id)
     except Exception as e:
-        print(e, file=sys.stderr)
+        print(type(e), e, file=sys.stderr)
 
 def get_basket_with_url(basket):
     basket_data = tuple(map(get_data_for_show_basket, basket))
@@ -65,7 +90,7 @@ def get_basket_from_session(request):
     try:
         basket = request.session['basket']
     except (KeyError, AttributeError) as e:
-        print(e, file=sys.stderr)
+        print(type(e), e, file=sys.stderr)
         request.session['basket'] = list()
         basket = request.session['basket']
     return basket
@@ -88,7 +113,7 @@ def delete_item_basket(request, id):
         basket.remove(id)
         request.session['basket'] = basket
     except ValueError as e:
-        print(e, file=sys.stderr)
+        print(type(e), e, file=sys.stderr)
     return redirect('shop:show-basket')
 
 def reservation_form(request):
@@ -98,52 +123,55 @@ def reservation_form(request):
 
 def post_reservation_form(request):
     try:
-        print(request.POST, type(request.POST), vars(request.POST),
-              request.POST['datetime'])
-        print(str(request.POST['datetime']))
         context = dict()
         reservation = Reservation.objects.create(date=request.POST['datetime'],
                            first_name=request.POST['first_name'],
                            last_name=request.POST['last_name'],
                            phone_number=request.POST['phone_number'])
         basket = request.session['basket']
-        formated_basket = get_number_each_item(basket)
-        print(formated_basket)
+        formated_basket = get_quantity_each_item(basket)
         for row in formated_basket:
             product = Product.objects.get(id=row['id'])
-            ReservationRow.objects.create(number=row['number'], reduction=0,
+            ReservationRow.objects.create(quantity=row['quantity'], reduction=0,
                                   product=product, reservation=reservation)
         request.session['basket'] = list()
         return render(request, 'shop/summary.html', context)
     except Exception as e:
-        print(e)
+        print(type(e), e, file=sys.stderr)
 
-def get_number_item_in_list(item_list, compared_item): 
-    print('begin get_number_item_in_list')
-    def count_same_item(accumulator, item):
-        print('begin count_same_item')
-        if item == compared_item:
-            accumulator += 1
-        return accumulator
-    return reduce(count_same_item, item_list, 0)
     
 
-def get_number_each_item(basket):
-    print('begin get_number_each_item')
-    def get_number_and_id(item):
-        print('begin get_number_and_id')
-        print(basket)
+def get_quantity_each_item(basket: list[int]):
+    def get_quantity_and_id(item: int):
         row = dict()
-        row['number'] = get_number_item_in_list(basket, item)
+        row['quantity'] =basket.count(item)
         row['id'] = item
         return row
-    count_basket = list(map(get_number_and_id, basket))
-    def remove_duplicate(accumulator, item):
-        print('begin remove_duplicate')
-        if get_number_item_in_list(accumulator, item) > 1:
-            accumulator.remove(item)
-        return accumulator
-    duplicateless_count_basket = reduce(remove_duplicate, count_basket,
-                                        count_basket)
+    count_basket = tuple(map(get_quantity_and_id, basket))
+    def remove_duplicate(acc, item):
+        if item not in acc:
+            acc.append(item)
+        return acc
+    duplicateless_count_basket = reduce(remove_duplicate, count_basket, list())
     return duplicateless_count_basket
 
+
+def get_invoice(request, id):
+    context = dict()
+    reservation = Reservation.objects.get(id=id)
+    reservation_rows = reservation.reservationrow_set.all()
+    def format_reservation(row):
+        data = dict()
+        data['image'] = row.product.image.name[11:]
+        data['name'] = row.product.name
+        data['description'] = row.product.description
+        data['quantity'] = row.quantity
+        data['unit_price'] = row.product.price
+        data['amount'] = data['quantity'] * data['unit_price']
+        return data
+    formated_reservation = tuple(map(format_reservation, reservation_rows))
+    context['formated_reservation'] = formated_reservation
+    context['reservation'] = reservation
+    context['total_price'] = reduce(lambda acc, row: acc + row['amount'],
+                            formated_reservation, 0)
+    return render(request, 'shop/invoice.html', context)
