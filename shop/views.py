@@ -1,8 +1,7 @@
-from django.shortcuts import render
-from .models import Product, ReservationRow, Reservation
+from django.shortcuts import render, redirect
+from .models import Product, ReservationRow, Reservation, Category
 from django.http import HttpResponse
-from functools import reduce
-from django.shortcuts import redirect
+from functools import reduce, singledispatch
 from .forms import ResevationForm
 import sys
 
@@ -14,12 +13,31 @@ def set_url_image(product):
         product.image =  product.image.name[11:] 
     return product
 
-def index(request):
+
+def show_products(request, category=None):
+    try:
+        products= get_products(int(category))
+    except Exception as _:
+        products = get_products(category)
     context = dict()
-    context['products'] = Product.objects.all().values()
-    context['products'] = list(map(set_url_image, context['products']))
+    context['categories'] = Category.objects.all().values('name')
+    context['products'] = list(map(set_url_image, products))
     context['basketQuantity'] = get_basket(request)
+    context['category_now'] = category
     return render(request, 'shop/index.html', context)
+
+@singledispatch
+def get_products(category: None):
+    return Product.objects.all().values()
+
+@get_products.register
+def _(category: str):
+    return Product.objects.filter(category__name=category).values()
+
+@get_products.register
+def _(category: int):
+    return Product.objects.filter(category__id=category).values()
+
 
 def get_basket(request):
     try:

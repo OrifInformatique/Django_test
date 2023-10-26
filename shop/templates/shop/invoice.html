@@ -42,7 +42,7 @@
               <tr>
                 <td>{{ product.quantity }}</td>
                 <td><img class="image" width="128" src="{% static product.image %}"></td>
-                <td>{{ product.name }}</td>
+                <td>{{ product.name|capfirst }}</td>
                 {% comment %}
                 <td>{{ product.description }}</td>
                 {% endcomment %}

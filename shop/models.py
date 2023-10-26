@@ -4,15 +4,30 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
+class Category(models.Model):
+    name = models.CharField(max_length=255, verbose_name=_('Name'))
+    description = models.CharField(max_length=255,
+                                   verbose_name=_('Description'))
+
+    def __str__(self):
+        return f'{self.name.capitalize()}'
+
+    class Meta:
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
 
 class Product(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_('Name'))
+    name = models.CharField(max_length=255, verbose_name=_('Name'),
+                            unique=True)
     description = models.CharField(max_length=255,
                                    verbose_name=_('Description'))
     price = models.DecimalField(max_digits=12, decimal_places=2, default=0,
                                 verbose_name=_('Price'))
     image = models.ImageField(upload_to='shop\static\shop\images',
                               verbose_name=_('Image'))
+    category = models.ForeignKey(Category, null=True, blank=True,
+            on_delete=models.CASCADE, verbose_name=_('Category'),
+            related_name=_('Products'))
     
     def __str__(self):
         return f'{self.name} {self.description} {self.price}'
@@ -20,6 +35,8 @@ class Product(models.Model):
     class Meta:
         verbose_name = _('Product')
         verbose_name_plural = _('Products')
+        indexes = [models.Index(fields=['name']), ]
+
 
 
 class Reservation(models.Model):

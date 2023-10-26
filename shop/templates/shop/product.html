@@ -7,14 +7,11 @@
     </figure>
   </div>
   <div class="card-content">
-    <h2 class="title is-2">{{ product.name }}</h2>
+    <h2 class="title is-2">{{ product.name|capfirst }}</h2>
     <p>{{ product.description }}</p>
     <strong>{{ product.price }}</strong>
     <div class="block">
       <button onClick="addItem(this, '{% url 'shop:add-basket' product.id %}')" class="button is-primary">{% translate 'Add' %}</button>
-      {% comment %}
-      <a href="{% url 'shop:add-basket' product.id %}" class="button is-primary">{% translate 'Add' %}</a>
-      {% endcomment %}
     </div>
   </div>
 </div>

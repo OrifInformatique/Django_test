@@ -25,8 +25,11 @@
       </p>
       <p class="block">
         <a href="{% url 'shop:show-basket' %}" class='button is-link '>
-          {% translate 'Check your basket'%} (<span id="basket-counter">0</span>)
+          {% translate 'Check your basket'%} (<span id="basket-counter"> </span>)
         </a>
+      </p>
+      <p class="block">
+        {% include "shop/category-buttons.html" with categories=categories %}
       </p>
       <div class="columns is-multiline">
         {% for product in products %}

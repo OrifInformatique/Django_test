@@ -39,7 +39,7 @@
         {% for product in basket %}
           <tr>
             <td><img class="image" width="128" src="{% static product.image %}"></td>
-            <td>{{ product.name }}</td>
+            <td>{{ product.name|capfirst }}</td>
             <td>{{ product.description }}</td>
             <td>{{ product.price }}</td>
             <td><a href="{% url 'shop:delete-item-basket'  product.id %}" class="button is-danger">{% translate 'Delete'%}</a></td>

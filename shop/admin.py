@@ -5,7 +5,7 @@ from django.urls import reverse
 
 # Register your models here.
 
-from .models import Product, Reservation, ReservationRow
+from .models import Product, Reservation, ReservationRow, Category
 
 
 class ReservationRowInline(admin.TabularInline):
@@ -44,6 +44,14 @@ class ReservationAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'price')
+    list_display = ('name', 'description', 'price', 'category')
+    search_fields = ['name', 'description']
+    list_filter = ['category']
+    list_per_page = 100
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
     search_fields = ['name', 'description']
     list_per_page = 100
+
