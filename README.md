@@ -14,23 +14,28 @@ python -m pip install mysqlclient
 ```bash
 python -m pip install django-debug-toolbar
 ```
+* Install Pillow (Its for ImageField)
+```bash
+python -m pip install pillow
+```
 * Download the project
 ```bash
 git clone https://github.com/OrifInformatique/Django_test
 cd Django_test
 ```
 * Configure your database in mysite/settings.py
+* Create your database in mysql or mariadb
 * Tables must be created via :
 ```bash
 python manage.py migrate
 ```
-* Launch the site
-```bash
-python manage.py runserver
-```
 Create a admin
 ```bash
 python manage.py createsuperuser
+```
+* Launch the site
+```bash
+python manage.py runserver
 ```
 Go on :
 http://localhost:8000/admin/ 
