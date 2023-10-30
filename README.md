@@ -12,7 +12,7 @@ python -m pip install mysqlclient
 ```
 * Install the debug bar
 ```bash
-* python -m pip install django-debug-toolbar
+python -m pip install django-debug-toolbar
 ```
 * Download the project
 ```bash
