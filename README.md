@@ -14,7 +14,7 @@ python -m pip install mysqlclient
 ```bash
 python -m pip install django-debug-toolbar
 ```
-* Install Pillow (Its for ImageField)
+* Install Pillow (It is for ImageField)
 ```bash
 python -m pip install pillow
 ```
