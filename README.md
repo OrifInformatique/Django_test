@@ -1,7 +1,7 @@
 # Django_test
 Essai du framework Django (Python)
 
-* You need to install python (and pip)
+* You need to install python (and pip), a mysql or mariadb database
 * Django must be installed
 ```bash
 python -m pip install Django
